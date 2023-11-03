@@ -1,0 +1,6 @@
+Django
+gunicorn
+openai
+dj-database-url
+psycopg2
+django-cors-headers
