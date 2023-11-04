@@ -3,8 +3,8 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
 import json
-
-
+import concurrent.futures
+import time
 # Move the OpenAI API key setup outside of the function for better performance.
 openai.api_key = os.getenv('OPENAI_KEY')
 
@@ -21,12 +21,21 @@ def user_input(request):
 
             if 'csv_data' in data and 'user_input_message' in data:
                 # Construct the conversation input by including the system message and user input.
+                print(data)
                 conversation = [
                     {"role": "system", "content": SYSTEM_MESSAGE},
                     {"role": "user",
                         "content": data['csv_data'] + '\n' + data['user_input_message']}
                 ]
-                ai_output = get_ai_response(conversation)
+                # ai_output = get_ai_response(conversation)
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    # Default message if no response is received
+                    ai_output = "Timed out please try again"
+                    try:
+                        ai_output = executor.submit(
+                            get_ai_response, conversation).result(timeout=30)
+                    except concurrent.futures.TimeoutError:
+                        pass  
                 response_data = {
                     'answer': ai_output,
                 }
@@ -71,6 +80,7 @@ def get_ai_response(conversation):
             messages=conversation
         )
         response_text = completion.choices[0].message["content"]
+        # response_text = "hi how can i help you.."
         print("AI response received.")
         return response_text
     except openai.error.OpenAIError as e:

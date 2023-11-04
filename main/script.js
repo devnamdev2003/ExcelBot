@@ -23,7 +23,7 @@ function sendMessage() {
         document.getElementById("response").style.display = "none";
 
         // Send the data to your API endpoint
-        fetch("http://127.0.0.1:8000/", {
+        fetch("https://excel-bot.onrender.com/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
