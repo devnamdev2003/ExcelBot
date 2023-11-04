@@ -5,7 +5,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -17,8 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'api',
     'corsheaders',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

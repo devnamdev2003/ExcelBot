@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #loader {
+        display: none;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <title>CSV Data Upload and API Interaction</title>
+  </head>
+  <body>
+    <h1>CSV Data Upload and API Interaction</h1>
+
+    <input type="file" id="csvFile" accept=".csv" />
+    <button id="uploadButton">Upload CSV</button>
+
+    <input type="text" id="userInput" placeholder="Enter your message" />
+    <button id="sendButton">Send Data to API</button>
+
+    <div id="loader"></div>
+    <div id="request" style="display: none"></div>
+    <br />
+    <div id="response" style="display: none"></div>
+
+    <script>
+      let csvData = null;
+
+      document
+        .getElementById("uploadButton")
+        .addEventListener("click", function () {
+          const fileInput = document.getElementById("csvFile");
+          const file = fileInput.files[0];
+
+          if (!file) {
+            alert("Please select a CSV file to upload.");
+            return; // Prevent further processing if no file is selected
+          }
+
+          if (file.name.endsWith(".csv")) {
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+              csvData = event.target.result;
+              console.log("CSV Data:", csvData);
+            };
+
+            reader.readAsText(file);
+          } else {
+            alert("Please upload a CSV file.");
+          }
+        });
+
+      document
+        .getElementById("sendButton")
+        .addEventListener("click", function () {
+          const userInput = document.getElementById("userInput").value;
+
+          if (!csvData && !userInput) {
+            alert(
+              "Please upload a CSV file and enter a message before sending."
+            );
+          } else if (!csvData) {
+            alert("Please upload a CSV file before sending.");
+          } else if (!userInput) {
+            alert("Please enter a message before sending.");
+          } else {
+            const requestData = {
+              csv_data: csvData,
+              user_input_message: userInput,
+            };
+
+            document.getElementById("loader").style.display = "block";
+            document.getElementById("request").style.display = "none";
+            document.getElementById("response").style.display = "none";
+
+            // Send the data to your API endpoint
+            fetch("http://127.0.0.1:8000/api/postdata/", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(requestData),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Hide loader and show response
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("request").style.display = "block";
+                document.getElementById("request").textContent =
+                  "User Input: " + userInput;
+                document.getElementById("response").style.display = "block";
+                document.getElementById("response").textContent =
+                  "API Response: " + data.answer;
+                // Clear the input field
+                document.getElementById("userInput").value = "";
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                // Hide loader and show error message
+                document.getElementById("loader").style.display = "none";
+                document.getElementById("response").style.display = "block";
+                document.getElementById("response").textContent =
+                  "API Request failed.";
+              });
+          }
+        });
+    </script>
+  </body>
+</html>
