@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExcelBot</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <h1>ExcelBot: Your Smart Data Partner</h1>
+    <input type="file" id="csvFile" accept=".csv" />
+    <button id="uploadButton">Upload CSV</button>
+    <br />
+    <br />
+    <input type="text" id="userInput" placeholder="Enter your message" />
+    <button id="sendButton">Send Data to API</button>
+
+    <div id="loader"></div>
+    <div id="request" style="display: none"></div>
+    <br />
+    <div id="response" style="display: none"></div>
+  </body>
+</html>
