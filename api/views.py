@@ -40,7 +40,7 @@ def user_input(request):
                 response_data = {
                     'answer': ai_output,
                 }
-                print("Response sent.")
+                print("Response sent.", response_data)
                 return JsonResponse(response_data)
             else:
                 # Handle the case when required JSON data fields are missing.
