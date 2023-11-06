@@ -14,7 +14,7 @@ function sendMessage() {
         alert("Please enter a message before sending.");
     } else {
         sendButton.setAttribute("disabled", "disabled");
-        sendButton.innerHTML ='<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
+        sendButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
         const requestData = {
             csv_data: csvData,
             user_input_message: userInput,
@@ -42,7 +42,7 @@ function sendMessage() {
                 // Clear the input field
                 document.getElementById("userInput").value = "";
                 sendButton.removeAttribute("disabled");
-                sendButton.innerText="Send your message"
+                sendButton.innerText = "Send your message"
 
             })
             .catch((error) => {
