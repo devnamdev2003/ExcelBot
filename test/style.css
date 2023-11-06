@@ -1,0 +1,229 @@
+body {
+
+    background: #e4ebf5;
+}
+
+:root {
+    font-size: 62.5%;
+    --primary-light: #8abdff;
+    --primary: #6d5dfc;
+    --primary-dark: #5b0eeb;
+    --white: #FFFFFF;
+    --greyLight-1: #E4EBF5;
+    --greyLight-2: #c8d0e7;
+    --greyLight-3: #bec8e4;
+    --greyDark: #9baacf;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #e6f2f8;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #adbadb;
+    border-radius: 100rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #6f8bd1;
+}
+
+.main {
+    max-width: 600px;
+    margin: 3rem auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.heading {
+    width: 95%;
+    text-align: center;
+    font-size: 1.6rem;
+    border-bottom: 2px solid black;
+    padding: 1rem 0rem;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+/* ------------------------------------- */
+/* -------------csv_upload-------------- */
+/* ------------------------------------- */
+.csv_upload {
+    width: 95%;
+    margin: 1rem 0;
+    display: flex;
+}
+
+
+.csv_upload input {
+    display: inline-block;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+    border-radius: .6rem 0rem 0rem .6rem;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 70%;
+    height: 100%;
+    font-size: 1.5rem;
+}
+
+input[type="file"]:valid::file-selector-button {
+    color: #4975e7;
+    font-weight: bold;
+    border: none;
+    padding: 1.2rem;
+    background: #e4ebf5;
+}
+
+.csv_upload .btnmy {
+    width: 30%;
+    padding: 1.2rem 2.5rem;
+    outline: none;
+    border: none;
+    border-radius: 0rem .6rem .6rem 0rem;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #4368c5;
+    font-size: 1.5rem;
+    background: #e4ebf5;
+    font-weight: bold;
+
+}
+
+.csv_upload .btnmy:active {
+    box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.csv_upload .btnmy:hover {
+    color: var(--primary);
+}
+
+/* ------------------------------------- */
+/* -------------user_input-------------- */
+/* ------------------------------------- */
+.user_input {
+    width: 95%;
+    margin: 1rem 0;
+}
+
+.form__input {
+    width: 100%;
+    border: none;
+    border-radius: .6rem;
+    font-size: 1.4rem;
+    box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+    background: none;
+    color: #2750b9;
+    margin-right: 22px;
+    padding: 1rem;
+    display: block;
+    width: 100%;
+    outline: none;
+    line-height: 20px;
+}
+
+.form__input::-moz-placeholder {
+    color: var(--greyDark);
+}
+
+.form__input:-ms-input-placeholder {
+    color: var(--greyDark);
+}
+
+.form__input::placeholder {
+    color: var(--greyDark);
+}
+
+.form__input:focus {
+    outline: none;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.user_input .spinner-border-sm {
+    --bs-spinner-width: 1.5rem;
+    --bs-spinner-height: 1.5rem;
+    --bs-spinner-border-width: 0.2em;
+}
+
+.user_input .btnmy {
+    width: 100%;
+    padding: 1.2rem 2.5rem;
+    outline: none;
+    border: none;
+    border-radius: .6rem;
+    box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
+    cursor: pointer;
+    transition: 0.3s ease;
+    color: #4368c5;
+    font-size: 1.5rem;
+    background: #e4ebf5;
+    margin: 2rem 0 0 0;
+    font-weight: bold;
+
+}
+
+.user_input .btnmy:active {
+    box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
+}
+
+.user_input .btnmy:hover {
+    color: var(--primary);
+}
+
+
+/* ------------------------------------- */
+/* -------------api_output-------------- */
+/* ------------------------------------- */
+.api_output {
+    width: 95%;
+    margin: 1rem 0;
+    font-size: 1.8rem;
+
+}
+
+.api_output span {
+    font-weight: 700;
+}
+
+.api_output .user_message {
+    margin: 1rem 0;
+    /* word-spacing: 2px; */
+    letter-spacing: 1px;
+}
+
+.api_output .api_answer {
+    margin: 1rem 0;
+}
+
+@media (max-width: 670px) {
+    .main {
+        width: 90%;
+    }
+
+    .heading h1 {
+        font-size: 2.6rem;
+    }
+
+    .csv_upload input {
+        width: 70%;
+    }
+    .csv_upload .btnmy {
+        width: 30%;
+        padding: 1.2rem 0rem;
+    }
+}
+
+
+    /* ------------------------------------- */
+    /* -------------table view-------------- */
+    /* ------------------------------------- */
