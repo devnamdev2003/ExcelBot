@@ -9,7 +9,7 @@ import time
 openai.api_key = os.getenv('OPENAI_KEY')
 
 # Define a system message that introduces the chatbot.
-SYSTEM_MESSAGE = "You are an ExcelBot developed by Dev Namdev named 'ExcelBot'."
+SYSTEM_MESSAGE = "you are an data analysis bot capable of responding to user queries by providing relevant information from a provided dataset. When a user asks a question, you will search for related data within the dataset and utilize that information to create a helpful response."
 
 
 @csrf_exempt
@@ -21,20 +21,20 @@ def user_input(request):
 
             if 'csv_data' in data and 'user_input_message' in data:
                 # Construct the conversation input by including the system message and user input.
+                user_message = "Tabel dataset: \n\n" + data['csv_data'].replace(
+                    "\r", "") + '\nUser query: ' + data['user_input_message']
                 conversation = [
                     {"role": "system", "content": SYSTEM_MESSAGE},
-                    {"role": "user",
-                        "content": data['csv_data'].replace("\r\n", " \n ") + '\n ' + data['user_input_message'].replace("\n", " ")}
-
+                    {"role": "user", "content": user_message}
                 ]
-                print(conversation)
+                print(user_message)
                 # ai_output = get_ai_response(conversation)
                 with concurrent.futures.ThreadPoolExecutor() as executor:
                     # Default message if no response is received
                     ai_output = "Timed out please try again"
                     try:
                         ai_output = executor.submit(
-                            get_ai_response, conversation).result(timeout=30)
+                            get_ai_response, conversation).result(timeout=40)
                     except concurrent.futures.TimeoutError:
                         pass
                 response_data = {
