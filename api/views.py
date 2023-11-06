@@ -21,12 +21,13 @@ def user_input(request):
 
             if 'csv_data' in data and 'user_input_message' in data:
                 # Construct the conversation input by including the system message and user input.
-                print(data)
                 conversation = [
                     {"role": "system", "content": SYSTEM_MESSAGE},
                     {"role": "user",
-                        "content": data['csv_data'] + '\n' + data['user_input_message']}
+                        "content": data['csv_data'].replace("\r\n", " \n ") + '\n ' + data['user_input_message'].replace("\n", " ")}
+
                 ]
+                print(conversation)
                 # ai_output = get_ai_response(conversation)
                 with concurrent.futures.ThreadPoolExecutor() as executor:
                     # Default message if no response is received
@@ -35,7 +36,7 @@ def user_input(request):
                         ai_output = executor.submit(
                             get_ai_response, conversation).result(timeout=30)
                     except concurrent.futures.TimeoutError:
-                        pass  
+                        pass
                 response_data = {
                     'answer': ai_output,
                 }
@@ -80,6 +81,7 @@ def get_ai_response(conversation):
             messages=conversation
         )
         response_text = completion.choices[0].message["content"]
+        # time.sleep(3)
         # response_text = "hi how can i help you.."
         print("AI response received.")
         return response_text

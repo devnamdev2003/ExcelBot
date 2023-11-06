@@ -6,6 +6,14 @@
     <title>ExcelBot</title>
     <link rel="stylesheet" href="./style.css" />
     <script src="./script.js" defer></script>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   </head>
   <body>
     <div class="main">
@@ -14,8 +22,21 @@
       </div>
 
       <div class="csv_upload">
-        <input type="file" id="csvFile" accept=".csv"  />
-        <button class="btn" id="uploadButton">Upload CSV</button>
+        <input
+          class="form-control"
+          type="file"
+          id="csvFileInput"
+          accept=".csv"
+          onchange="loadCSV()"
+        />
+        <button
+          type="button"
+          class="btnmy"
+          data-bs-toggle="modal"
+          data-bs-target="#myModal"
+        >
+          See file
+        </button>
       </div>
 
       <div class="user_input">
@@ -24,23 +45,58 @@
             name="user_input"
             class="form__input"
             id="userInput"
-            rows="4"
+            rows="6"
             placeholder="Enter your message"
           ></textarea>
         </div>
         <div>
-          <button class="btn" id="sendButton">Send Data to API</button>
+          <button class="btnmy" id="sendButton" onclick="sendMessage()">
+            <!-- <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span> -->
+            Send your message
+          </button>
         </div>
       </div>
+
       <div class="api_output">
-        <div id="loader"></div>
         <div class="user_message" id="request" style="display: none"></div>
         <div class="api_answer" id="response" style="display: none"></div>
+      </div>
+    </div>
 
-        <!-- <div class="user_message" id="request"><span>User Input: </span>1</div>
-        <div class="api_answer" id="response">
-          <span>Answer: </span>hi how can i help you..
-        </div> -->
+    <div class="modal" id="myModal">
+      <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">CSV View</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div id="csvContainer">
+              <table id="csvTable" class="table table-striped"></table>
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </body>

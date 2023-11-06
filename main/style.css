@@ -1,9 +1,3 @@
-* {
-    margin: 0%;
-    padding: 0%;
-    box-sizing: border-box;
-}
-
 body {
 
     background: #e4ebf5;
@@ -20,6 +14,7 @@ body {
     --greyLight-3: #bec8e4;
     --greyDark: #9baacf;
 }
+
 ::-webkit-scrollbar {
     width: 7px;
 }
@@ -42,7 +37,7 @@ body {
 
 .main {
     max-width: 600px;
-    margin: 2rem auto;
+    margin: 3rem auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -68,30 +63,29 @@ body {
     display: flex;
 }
 
-.csv_upload .input_field {
-    width: 100%;
-}
 
 .csv_upload input {
     display: inline-block;
-    padding: 1.2rem;
     box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
     border-radius: .6rem 0rem 0rem .6rem;
     outline: none;
     border: none;
     cursor: pointer;
-    width: 60%;
+    width: 70%;
+    height: 100%;
+    font-size: 1.5rem;
 }
 
 input[type="file"]:valid::file-selector-button {
     color: #4975e7;
     font-weight: bold;
     border: none;
+    padding: 1.2rem;
     background: #e4ebf5;
 }
 
-.csv_upload .btn {
-    width: 40%;
+.csv_upload .btnmy {
+    width: 30%;
     padding: 1.2rem 2.5rem;
     outline: none;
     border: none;
@@ -106,11 +100,11 @@ input[type="file"]:valid::file-selector-button {
 
 }
 
-.csv_upload .btn:active {
+.csv_upload .btnmy:active {
     box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 
-.csv_upload .btn:hover {
+.csv_upload .btnmy:hover {
     color: var(--primary);
 }
 
@@ -155,7 +149,13 @@ input[type="file"]:valid::file-selector-button {
     box-shadow: 0.3rem 0.3rem 0.6rem var(--greyLight-2), -0.2rem -0.2rem 0.5rem var(--white);
 }
 
-.user_input .btn {
+.user_input .spinner-border-sm {
+    --bs-spinner-width: 1.5rem;
+    --bs-spinner-height: 1.5rem;
+    --bs-spinner-border-width: 0.2em;
+}
+
+.user_input .btnmy {
     width: 100%;
     padding: 1.2rem 2.5rem;
     outline: none;
@@ -172,11 +172,11 @@ input[type="file"]:valid::file-selector-button {
 
 }
 
-.user_input .btn:active {
+.user_input .btnmy:active {
     box-shadow: inset 0.2rem 0.2rem 0.5rem var(--greyLight-2), inset -0.2rem -0.2rem 0.5rem var(--white);
 }
 
-.user_input .btn:hover {
+.user_input .btnmy:hover {
     color: var(--primary);
 }
 
@@ -188,28 +188,7 @@ input[type="file"]:valid::file-selector-button {
     width: 95%;
     margin: 1rem 0;
     font-size: 1.8rem;
-}
 
-#loader {
-    display: none;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #4368c5;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s cubic-bezier(0.42, 0, 0.2, 0.98) infinite;
-    margin: 1rem auto;
-}
-
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 .api_output span {
@@ -218,6 +197,8 @@ input[type="file"]:valid::file-selector-button {
 
 .api_output .user_message {
     margin: 1rem 0;
+    /* word-spacing: 2px; */
+    letter-spacing: 1px;
 }
 
 .api_output .api_answer {
@@ -227,10 +208,22 @@ input[type="file"]:valid::file-selector-button {
 @media (max-width: 670px) {
     .main {
         width: 90%;
-        margin: 2rem auto;
     }
 
     .heading h1 {
         font-size: 2.6rem;
     }
+
+    .csv_upload input {
+        width: 70%;
+    }
+    .csv_upload .btnmy {
+        width: 30%;
+        padding: 1.2rem 0rem;
+    }
 }
+
+
+    /* ------------------------------------- */
+    /* -------------table view-------------- */
+    /* ------------------------------------- */

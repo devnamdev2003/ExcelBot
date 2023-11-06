@@ -1,8 +1,9 @@
 let csvData = null;
-const sendButton = document.getElementById("sendButton");
+
 
 function sendMessage() {
     const userInput = document.getElementById("userInput").value;
+    const sendButton = document.getElementById("sendButton");
     if (!csvData && !userInput) {
         alert(
             "Please upload a CSV file and enter a message before sending."
@@ -13,12 +14,12 @@ function sendMessage() {
         alert("Please enter a message before sending.");
     } else {
         sendButton.setAttribute("disabled", "disabled");
+        sendButton.innerHTML ='<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...'
         const requestData = {
             csv_data: csvData,
             user_input_message: userInput,
         };
 
-        document.getElementById("loader").style.display = "block";
         document.getElementById("request").style.display = "none";
         document.getElementById("response").style.display = "none";
 
@@ -32,59 +33,63 @@ function sendMessage() {
         })
             .then((response) => response.json())
             .then((data) => {
-                // Hide loader and show response
-                document.getElementById("loader").style.display = "none";
                 document.getElementById("request").style.display = "block";
                 document.getElementById("request").innerHTML =
                     "<span>User Input: </span>" + userInput;
                 document.getElementById("response").style.display = "block";
                 document.getElementById("response").innerHTML =
-                    "<span>Answer: </span>" + data.answer;
+                    "<span>Answer: </span>" + marked.parse(data.answer);
                 // Clear the input field
                 document.getElementById("userInput").value = "";
                 sendButton.removeAttribute("disabled");
+                sendButton.innerText="Send your message"
 
             })
             .catch((error) => {
                 console.error("Error:", error);
-                // Hide loader and show error message
-                document.getElementById("loader").style.display = "none";
                 document.getElementById("response").style.display = "block";
                 document.getElementById("response").textContent =
-                    "API Request failed.";
+                    "Request failed.";
             });
     }
 }
 
-document
-    .getElementById("uploadButton")
-    .addEventListener("click", function () {
-        const fileInput = document.getElementById("csvFile");
-        const file = fileInput.files[0];
+function loadCSV() {
+    const fileInput = document.getElementById("csvFileInput");
+    const csvTable = document.getElementById("csvTable");
+    const file = fileInput.files[0];
+    if (!file) {
+        alert("Please select a CSV file to upload.");
+        return;
+    }
+    if (file.name.endsWith(".csv")) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            csvData = e.target.result;
+            // console.log("CSV Data:", csvData);
+            const contents = e.target.result;
+            const lines = contents.split("\n");
+            let html = "<thead><tr>";
+            for (let i = 0; i < lines[0].split(",").length; i++) {
+                html += "<th>" + lines[0].split(",")[i] + "</th>";
+            }
+            html += "</tr></thead><tbody>";
+            for (let i = 1; i < lines.length; i++) {
+                html += "<tr>";
+                const row = lines[i].split(",");
+                for (const value of row) {
+                    html += "<td>" + value + "</td>";
+                }
+                html += "</tr>";
+            }
+            html += "</tbody>";
+            csvTable.innerHTML = html;
 
-        if (!file) {
-            alert("Please select a CSV file to upload.");
-            return;
-        }
+        };
 
-        if (file.name.endsWith(".csv")) {
-            const reader = new FileReader();
-
-            reader.onload = function (event) {
-                csvData = event.target.result;
-                console.log("CSV Data:", csvData);
-                // Show a success message
-                alert("CSV file uploaded successfully!");
-            };
-
-            reader.readAsText(file);
-        } else {
-            alert("Please upload a CSV file.");
-        }
-    });
-
-document
-    .getElementById("sendButton")
-    .addEventListener("click", function () {
-        sendMessage();
-    });
+        reader.readAsText(file);
+    }
+    else {
+        alert("Please upload a CSV file.");
+    }
+}
