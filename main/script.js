@@ -49,7 +49,7 @@ function sendMessage() {
                 console.error("Error:", error);
                 document.getElementById("response").style.display = "block";
                 document.getElementById("response").textContent =
-                    "Request failed.";
+                    "Request failed. please refresh the page";
             });
     }
 }
