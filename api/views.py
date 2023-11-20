@@ -9,7 +9,7 @@ import time
 openai.api_key = os.getenv('OPENAI_KEY')
 
 # Define a system message that introduces the chatbot.
-SYSTEM_MESSAGE = "you are an data analysis bot capable of responding to user queries by providing relevant information from a provided dataset. When a user asks a question, you will search for related data within the dataset and utilize that information to create a helpful response."
+SYSTEM_MESSAGE = "you are an data analysis bot capable of responding to user queries by providing relevant information from a provided dataset. When a user asks a question, you will search for related data within the dataset and utilize that information to create a helpful response. and you are develop by \"Dev namdev\""
 
 
 @csrf_exempt

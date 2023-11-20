@@ -1,6 +1,13 @@
+window.addEventListener("load", loding);
 // Initialize csvData as null
 let csvData = null;
-
+let wordCount = 0;
+function loding() {
+    var inputElement = document.getElementById('userInput');
+    inputElement.addEventListener("focus", () => {
+        inputElement.placeholder = "Example:  Print the 3rd row of data.";
+    })
+}
 // Function to send user input and CSV data to an API endpoint
 function sendMessage() {
     // Get the user input and send button from the document
@@ -15,7 +22,12 @@ function sendMessage() {
     // Check if csvData is empty
     else if (!csvData) {
         // Alert the user to upload a CSV file before sending
-        alert("Please upload a CSV file before sending.");
+        if (wordCount > 100) {
+            alert("CSV file contains more than 100 words. Please check your file.");
+        }
+        else {
+            alert("Please upload a CSV file before sending.");
+        }
     }
     // Check if userInput is empty
     else if (!userInput) {
@@ -94,7 +106,14 @@ function loadCSV() {
             const contents = e.target.result;
             const lines = contents.split("\n");
             let html = "<thead><tr>";
-
+            // Check if the CSV file data contains more than 100 words
+            wordCount = contents.split(',').length;
+            if (wordCount > 100) {
+                alert("CSV file contains more than 100 words. Please check your file."+wordCount);
+                csvData = null;
+                csvTable.innerHTML = "";
+                return;
+            }
             // Populate the table header with the column names
             for (let i = 0; i < lines[0].split(",").length; i++) {
                 html += "<th>" + lines[0].split(",")[i] + "</th>";
