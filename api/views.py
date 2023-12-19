@@ -85,7 +85,7 @@ def get_ai_response(conversation):
         # response_text = "hi how can i help you.."
         print("AI response received.")
         return response_text
-    except openai.error.OpenAIError as e:
+    except Exception as e:
         # Handle OpenAI API errors and provide specific error message.
         response_data = {
             'error': f'OpenAI API error: {str(e)}'
